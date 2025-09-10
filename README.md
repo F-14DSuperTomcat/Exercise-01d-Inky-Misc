@@ -1,5 +1,6 @@
 # Exercise-01d-Inky-Misc
 
-# Your Name
+# Ryan Green
 
-# Your Github username
+# F-14DSuperTomcat
+

@@ -7,13 +7,14 @@ This exercise will demonstrate the following in the example video:
  - Functions
  
  In the assignment:
- - A story with at least 6 knots
- - Vary some text via a loop
- - Create a function that serves as a timer. (This is shown in the video)
+ * A story with at least 6 knots
+ * Vary some text via a loop
+ * Create a function that serves as a timer. (This is shown in the video)
 */
 
 
-VAR time = 0 //  0 Morning, 1 Noon, 2 Night
+VAR time = -1 //  0 Morning, 1 Noon, 2 Night
+VAR sandiness = -1 // 0 not sandy, 1 kind of sandy, 2 covered in sand
 
 
 
@@ -23,17 +24,37 @@ VAR time = 0 //  0 Morning, 1 Noon, 2 Night
 == seashore ==
 You are sitting on the beach. 
 
-+ [Wait] -> seashore
+It is {advance_time()}.
+You are {more_sand()}.
+
++ [Stroll down the beach] -> beach2
 -> DONE
 
 == beach2 ==
 This is further down the beach.
++ [eat a meal] -> food
+* {time == 1} [pick up some seashells] -> shells
+* {time == 2} [follow some footprints] -> footprints
+It is {advance_time()}
 
 + [Move back up the beach] -> seashore
+
+== food ==
+You have {&Waffles|Burgers|Steak}
++ [eat your meal and head back to shore] -> seashore
 
 == shells ==
 You pick up the shells
 -> beach2
+
+== footprints==
+You see a deer
+* [walk toward the deer] -> deer
+* [go back to the shore] -> seashore
+
+== deer ==
+The deer doesn't like you and snips at you
+* [return to shore] -> seashore
 
 == function advance_time ==
 
@@ -43,7 +64,7 @@ You pick up the shells
         - time > 2:
             ~ time = 0
     }    
-    /*
+
     {    
         - time == 0:
             ~ return "Morning"
@@ -55,10 +76,30 @@ You pick up the shells
             ~ return "Night"
     
     }
-    */
+    
     
         
     ~ return time
     
+    == function more_sand ==
+    
+    ~ sandiness = sandiness + 1
+    
+    {
+        - sandiness > 2:
+            ~ sandiness = 0
+    }
+    
+    {
+        - sandiness == 0:
+            ~ return "sandy"
+            
+        - sandiness == 1:
+            ~ return "kind of sandy"
+            
+        - sandiness == 2:
+            ~ return "very sandy. You wash it off in the sea"
+            
+    }
     
     
